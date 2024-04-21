@@ -1,0 +1,130 @@
+main {
+  display: flex;
+  justify-content: space-between;
+
+  padding-top: 40px;
+
+  .aside {
+    max-width: 157px;
+    width: 100%;
+
+    .contentAside {
+      display: flex;
+      flex-direction: column;
+      row-gap: 24px;
+
+      margin-top: 65px;
+
+      .colors {
+        .contentColors {
+          margin-top: 15px;
+          display: flex;
+          flex-direction: column;
+          align-items: start;
+          justify-content: center;
+
+          row-gap: 10px;
+        }
+      }
+
+      .sizes {
+        .contentSizes {
+          margin-top: 15px;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          row-gap: 8px;
+
+          span {
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+
+            border: 1px solid black;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            transition: border 0.5s;
+            &:hover {
+              border: 2px solid $orange;
+            }
+          }
+        }
+      }
+
+      .prices {
+        .contentPrices {
+          margin-top: 15px;
+          display: flex;
+          flex-direction: column;
+          align-items: start;
+          justify-content: center;
+
+          row-gap: 10px;
+        }
+      }
+    }
+  }
+
+  .centerSide {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    width: 100%;
+    .centerSideContent {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      row-gap: 42px;
+
+      max-width: 976px;
+      width: 100%;
+
+      .card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 33%;
+
+        h4 {
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 19.07px;
+          text-transform: uppercase;
+          margin: 10px 0;
+        }
+
+        .priceCard {
+          font-size: 16px;
+          font-weight: 700;
+          line-height: 21.79px;
+        }
+
+        .priceDetailCard {
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 21.79px;
+          color: $dark-gray;
+          margin: 0 0 14px 0;
+        }
+
+        button {
+          max-width: 196px;
+          width: 100%;
+          height: 33px;
+          color: white;
+          background-color: $black;
+          font-size: 14px;
+          font-weight: 700;
+          line-height: 19.07px;
+          border: none;
+        }
+      }
+    }
+  }
+}

@@ -1,3 +1,60 @@
 * {
   font-family: "Open Sans", sans-serif;
 }
+
+.container {
+  max-width: 85%;
+  margin: auto;
+}
+
+h2 {
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 43.58px;
+}
+
+h3 {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 21.79px;
+  letter-spacing: 5%;
+}
+
+label {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 14px;
+  color: $black;
+}
+
+input {
+  appearance: none;
+  border-radius: 0;
+  width: 16px;
+  height: 16px;
+  border: 1px solid $light-gray;
+  margin: 0;
+
+  display: grid;
+  place-content: center;
+
+  &::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    background-color: $orange;
+  }
+
+  &:checked::before {
+    transform: scale(1);
+  }
+}
+
+.display-flex-row-align-center {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 10px;
+}
