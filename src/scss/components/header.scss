@@ -1,9 +1,14 @@
 header {
+  border-bottom: 2px solid $dark-gray;
   nav {
     ul {
       list-style-type: none;
       display: flex;
       flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+
+      padding: 25px 0;
     }
   }
 }
