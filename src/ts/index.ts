@@ -12,6 +12,7 @@ function main() {
   addToCart();
   openModalsMobile();
   filterColors();
+  loadCards();
 }
 
 document.addEventListener("DOMContentLoaded", main);
@@ -82,6 +83,7 @@ function setCardInHtml(productsList: Object) {
     const newButton = document.createElement("button");
 
     newDiv.classList.add("card");
+    newDiv.classList.add("hidden");
     newImage.src = value.image;
     newTitle.innerText = value.name;
     newPrice.innerText = "R$ " + value.price;
@@ -220,5 +222,30 @@ function filterColors() {
         return;
       }
     });
+  });
+}
+
+function loadCards() {
+  const loadMore = document.getElementById("loadMore");
+  const hid = Array.from(document.querySelectorAll(".card.hidden"));
+
+  if (window.innerWidth <= 425) {
+    hid.splice(0, 4).forEach((elem) => elem.classList.remove("hidden"));
+  } else {
+    hid.splice(0, 6).forEach((elem) => elem.classList.remove("hidden"));
+  }
+
+  loadMore.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    if (window.innerWidth <= 425) {
+      hid.splice(0, 4).forEach((elem) => elem.classList.remove("hidden"));
+    } else {
+      hid.splice(0, 6).forEach((elem) => elem.classList.remove("hidden"));
+    }
+
+    if (hid.length == 0) {
+      loadMore.classList.add("hidden");
+    }
   });
 }

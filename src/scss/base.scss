@@ -61,7 +61,8 @@ input {
   column-gap: 10px;
 }
 
-.displayNone {
+.displayNone,
+.hidden {
   display: none !important;
 }
 
