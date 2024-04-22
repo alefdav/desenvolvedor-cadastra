@@ -93,9 +93,14 @@ main {
             justify-content: center;
             align-items: center;
 
-            transition: border 0.5s;
+            transition: border 0.2s;
+
             &:hover {
-              border: 2px solid $orange;
+              border: 1px solid $orange;
+            }
+
+            &.selected {
+              border: 1px solid $orange;
             }
           }
         }
@@ -141,6 +146,8 @@ main {
       justify-content: center;
       align-items: center;
       text-decoration: none;
+      border: 1px solid black;
+      text-transform: uppercase;
 
       margin: 78px 0 43px 0;
     }
