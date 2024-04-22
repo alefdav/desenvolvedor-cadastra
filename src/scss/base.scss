@@ -37,7 +37,9 @@ input {
 
   display: grid;
   place-content: center;
+}
 
+.wBefore {
   &::before {
     content: "";
     width: 10px;
@@ -57,4 +59,12 @@ input {
   flex-direction: row;
   align-items: center;
   column-gap: 10px;
+}
+
+.displayNone {
+  display: none !important;
+}
+
+.noScroll {
+  overflow: hidden;
 }

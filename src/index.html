@@ -15,7 +15,10 @@
     <nav class="container">
       <ul>
         <li><img src="./img/logo_cadastra.png" alt="logo cadastra"></li>
-        <li><img src="./img/cart.png" alt="carrinho"></li>
+        <li class="cartDiv">
+          <img src="./img/cart.png" alt="carrinho" class="cart">
+          <span class="cartNum"></span>
+        </li>
       </ul>
     </nav>
   </header>
@@ -24,6 +27,11 @@
 
     <section class="aside">
       <h2>Blusas</h2>
+
+      <div class="buttonsMobile">
+        <span>Filtrar</span>
+        <span>Ordenar</span>
+      </div>
 
       <div class="contentAside">
         <div class="colors">
@@ -64,6 +72,7 @@
     </section>
 
     <section class="centerSide">
+      
       <select name="" id="">
         <option value="" disabled>Ordernar por:</option>
         <option value="recentes">Mais recentes</option>
@@ -76,6 +85,55 @@
       </div>
     </section>
 
+    <div class="filterMobile displayNone">
+      <div class="filterMobileHeader">
+        <h2>FILTRAR</h2>
+        <span class="closeButton">X</span>
+      </div>
+      <div class="filterMobileContent">
+        <details class="filterMobileColors">
+          <summary><h2>CORES</h2></summary>
+          
+        </details>
+        <details>
+          <summary><h2>TAMANHOS</h2></summary>
+            <div class="contentSizes">
+              <span>P</span>
+              <span>M</span>
+              <span>G</span>
+              <span>GG</span>
+              <span>U</span>
+            </div>
+        </details>
+        <details>
+          <summary><h2>FAIXA DE PREÇO</h2></summary>
+          <div class="contentPrices">
+            <div class="display-flex-row-align-center">
+              <input type="radio" name="color2" id="color2">
+              <label for="color2">de R$0 até R$50</label>
+            </div>
+            <div class="display-flex-row-align-center">
+              <input type="radio" name="color2" id="color2">
+              <label for="color2">de R$51 até R$150</label>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <div class="orderMobile displayNone">
+      <div class="orderMobileHeader">
+        <h2>ORDERNAR</h2>
+        <span class="closeButton">X</span>
+      </div>
+      
+      <div class="orderMobileContent">
+        <span>Mais recente</span>
+        <span>Maior preço</span>
+        <span>Menor preço</span>
+      </div>
+    </div>
+    
     
   </main>
 
