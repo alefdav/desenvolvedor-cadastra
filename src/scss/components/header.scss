@@ -9,6 +9,28 @@ header {
       width: 100%;
 
       padding: 25px 0;
+
+      .cartDiv {
+        position: relative;
+        .cart {
+        }
+        .cartNum {
+          width: 15px;
+          height: 15px;
+          display: flex;
+          background-color: $orange;
+          border-radius: 50%;
+
+          position: absolute;
+          top: 11px;
+          right: -4px;
+          color: white;
+          font-size: 10px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
     }
   }
 }
