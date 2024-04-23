@@ -117,6 +117,23 @@ main {
           row-gap: 10px;
         }
       }
+
+      button {
+        cursor: pointer;
+        background-color: $orange;
+        width: 175px;
+        height: 35px;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 19.07px;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        border: 1px solid black;
+        text-transform: uppercase;
+      }
     }
   }
 
@@ -266,6 +283,44 @@ main {
       flex-direction: column;
     }
 
+    .filterMobileContent {
+      margin: 30px 16px;
+      row-gap: 30px;
+
+      h2 {
+        font-size: 24px;
+      }
+      .filterMobileColors div,
+      .contentPrices div {
+        margin-bottom: 16px;
+      }
+
+      .contentSizes {
+        margin-top: 15px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        row-gap: 8px;
+        max-width: 157px;
+
+        span {
+          cursor: pointer;
+          width: 32px;
+          height: 32px;
+          border: 1px solid black;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          transition: border 0.2s;
+
+          &.selected {
+            border: 1px solid $orange;
+          }
+        }
+      }
+    }
+
     .orderMobileContent {
       row-gap: 30px;
       padding: 0px 0px 0px 16px;
@@ -276,6 +331,41 @@ main {
         font-size: 22px;
         font-weight: 400;
         line-height: 29.96px;
+        transition: background-color 0.2s;
+
+        &.selected {
+          color: white;
+          background-color: $orange;
+        }
+      }
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      margin: 0 16px;
+      button {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 19.07px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 48%;
+        height: 35px;
+      }
+
+      .aplicar {
+        background-color: $orange;
+        color: white;
+        border: none;
+        outline: none;
+      }
+
+      .limpar {
+        background-color: white;
+        color: black;
+        border: 1px solid $black;
       }
     }
   }

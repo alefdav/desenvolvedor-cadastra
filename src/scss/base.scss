@@ -69,3 +69,23 @@ input {
 .noScroll {
   overflow: hidden;
 }
+
+summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+summary::after {
+  margin-left: 1ch;
+  display: inline-block;
+  content: url(../img/arrow.png);
+}
+
+select option:hover {
+  background-color: yellow;
+}
+
+select.decorated option:hover {
+  box-shadow: 0 0 10px 100px #1882a8 inset;
+}

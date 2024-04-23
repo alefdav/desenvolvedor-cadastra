@@ -3,22 +3,28 @@ import { Product } from "./Product";
 const productsEndPoint = "http://localhost:5000/products";
 const productsList: Product[] = JSON.parse(localStorage.getItem("products"));
 const colors = JSON.parse(localStorage.getItem("colors"));
+let filtered: boolean = false;
 const filterC: string[] = [];
 const filterS: string[] = [];
+let filterP: string = "0,9999";
 
 function main() {
   getProducts(productsEndPoint);
   getColors(productsList);
   setColorsInHtml(colors, document.querySelector(".contentColors"));
-  addToCart();
+  if (!document.querySelector(".filterMobileColors .clickFilter")) {
+    setColorsInHtml(colors, document.querySelector(".filterMobileColors"));
+  }
   openModalsMobile();
   filterColors();
   filterSizes();
-
+  filterPrice();
   setCardInHtml(productsList);
-  // loadCards();
+  loadCards();
 
   updateCardsWithFilters();
+  addToCart();
+  changeOrder();
 }
 
 document.addEventListener("DOMContentLoaded", main);
@@ -63,14 +69,14 @@ function setColorsInHtml(colors: Object, div: HTMLElement) {
     const newDiv = document.createElement("div");
     const newLabel = document.createElement("label");
     const newInput = document.createElement("input");
-
-    newLabel.innerHTML = "<label for=" + value + ">" + value + "</label>";
+    newLabel.htmlFor = value;
+    newLabel.innerText = value;
     newInput.type = "radio";
     newInput.name = value;
     newInput.id = value;
+    newInput.classList.add("clickFilter");
     newInput.classList.add("wBefore");
     newDiv.classList.add(divName);
-    newInput.classList.add("clickFilter");
     newDiv.appendChild(newInput);
     newDiv.appendChild(newLabel);
     divHTML.appendChild(newDiv);
@@ -92,8 +98,8 @@ function addToCart() {
             objeto.id == element.attributes.getNamedItem("idproduct").value
         )
       );
-
       cartDiv.innerText = cart.length.toString();
+      sessionStorage.setItem("cart", JSON.stringify(cart));
     });
   });
 }
@@ -102,15 +108,23 @@ function openModalsMobile() {
   const div = document.querySelector(".buttonsMobile");
   const body = document.querySelector("body");
   const closeButtons = document.querySelectorAll(".closeButton");
+  const buttons = document.querySelectorAll(".buttons button");
   const filter = document.querySelector(".filterMobile");
   const order = document.querySelector(".orderMobile");
+
+  buttons.forEach((element) => {
+    element.addEventListener("click", () => {
+      event.preventDefault();
+
+      filter.classList.add("displayNone");
+      body.classList.remove("noScroll");
+    });
+  });
 
   div.addEventListener("click", (e) => {
     if ((e.target as HTMLInputElement).innerText == "Filtrar") {
       body.classList.add("noScroll");
       filter.classList.remove("displayNone");
-
-      setColorsInHtml(colors, document.querySelector(".filterMobileColors"));
 
       closeButtons[0].addEventListener("click", () => {
         filter.classList.add("displayNone");
@@ -134,8 +148,10 @@ function openModalsMobile() {
 }
 
 function filterColors() {
-  // let colorsSelected: String[] = [];
-  const divColors = document.querySelectorAll(".contentColors input");
+  const divColors =
+    window.innerWidth > 425
+      ? document.querySelectorAll(".contentColors input")
+      : document.querySelectorAll(".filterMobileColors .clickFilter");
 
   divColors.forEach((element) => {
     element.addEventListener("click", () => {
@@ -160,8 +176,10 @@ function filterColors() {
 }
 
 function filterSizes() {
-  const buttonsSize = document.querySelectorAll(".contentSizes span");
-  const div = Array.from(document.querySelector(".centerSideContent").children);
+  const buttonsSize =
+    window.innerWidth >= 425
+      ? document.querySelectorAll(".contentSizes span")
+      : document.querySelectorAll(".filterMobileSize span");
 
   buttonsSize.forEach((element) => {
     element.addEventListener("click", () => {
@@ -211,7 +229,12 @@ function loadCards() {
 
 function setCardInHtml(products: Object) {
   const div = document.querySelector(".centerSideContent");
+  const loadMore = document.getElementById("loadMore");
   div.innerHTML = "";
+
+  if (filtered) {
+    loadMore.classList.add("displayNone");
+  }
 
   Object.entries(products).forEach(([key, value]) => {
     const newDiv = document.createElement("div");
@@ -222,7 +245,9 @@ function setCardInHtml(products: Object) {
     const newButton = document.createElement("button");
 
     newDiv.classList.add("card");
-    // newDiv.classList.add("hidden");
+    if (!filtered) {
+      newDiv.classList.add("hidden");
+    }
     newImage.src = value.image;
     newTitle.innerText = value.name;
     newPrice.innerText = "R$ " + value.price;
@@ -249,26 +274,81 @@ function setCardInHtml(products: Object) {
   });
 }
 
-function filter(cores?: string[], tamanhos?: string[]) {
-  if (cores.length == 0 && tamanhos.length == 0) {
+function filter(cores?: string[], tamanhos?: string[], preco?: string) {
+  const precoIntervalo = getPrecoIntervalo(preco);
+  filtered = true;
+
+  if (cores.length === 0 && tamanhos.length === 0 && preco.length === 0) {
     return productsList;
   }
 
-  if (cores.length == 0) {
+  if (cores.length === 0 && tamanhos.length !== 0 && preco.length !== 0) {
+    return productsList.filter(
+      (produto) =>
+        produto.price >= precoIntervalo[0] &&
+        produto.price <= precoIntervalo[1] &&
+        produto.size.some((s) => tamanhos.includes(s))
+    );
+  }
+
+  if (tamanhos.length === 0 && cores.length !== 0 && preco.length !== 0) {
+    return productsList.filter(
+      (produto) =>
+        produto.price >= precoIntervalo[0] &&
+        produto.price <= precoIntervalo[1] &&
+        cores.includes(produto.color)
+    );
+  }
+
+  if (preco.length === 0 && cores.length !== 0 && tamanhos.length !== 0) {
+    return productsList.filter(
+      (produto) =>
+        cores.includes(produto.color) &&
+        produto.size.some((s) => tamanhos.includes(s))
+    );
+  }
+
+  if (cores.length == 0 && preco.length === 0) {
     return productsList.filter((produto) =>
       produto.size.some((s) => tamanhos!.includes(s))
     );
   }
 
-  if (tamanhos.length == 0) {
+  if (tamanhos.length === 0 && preco.length === 0) {
     return productsList.filter((produto) => cores.includes(produto.color));
+  }
+
+  if (tamanhos.length === 0 && cores.length === 0) {
+    return productsList.filter(
+      (produto) =>
+        produto.price >= precoIntervalo[0] && produto.price <= precoIntervalo[1]
+    );
   }
 
   return productsList.filter(
     (produto) =>
       cores.includes(produto.color) &&
-      produto.size.some((s) => tamanhos.includes(s))
+      produto.size.some((s) => tamanhos.includes(s)) &&
+      produto.price >= precoIntervalo[0] &&
+      produto.price <= precoIntervalo[1]
   );
+}
+
+function getPrecoIntervalo(preco: string): [number, number] {
+  switch (preco) {
+    case "0-50":
+      return [0, 50];
+    case "51-150":
+      return [51, 150];
+    case "151-300":
+      return [151, 300];
+    case "301-500":
+      return [301, 500];
+    case "500":
+      return [500, Infinity];
+    default:
+      return [0, Infinity];
+  }
 }
 
 function updateCardsWithFilters() {
@@ -276,7 +356,63 @@ function updateCardsWithFilters() {
 
   divInputs.forEach((element) => {
     element.addEventListener("click", () => {
-      setCardInHtml(filter(filterC, filterS));
+      setCardInHtml(filter(filterC, filterS, filterP));
     });
   });
+}
+
+function filterPrice() {
+  const radios =
+    window.innerWidth >= 425
+      ? document.querySelectorAll(".contentPrices input")
+      : document.querySelectorAll(".filterMobilePrice input");
+  radios.forEach((element) => {
+    element.addEventListener("click", () => {
+      element.classList.add("wBefore");
+
+      filterP = element.attributes.getNamedItem("pricedata").value;
+    });
+  });
+}
+
+function changeOrder() {
+  const select = document.querySelector(
+    ".centerSide select"
+  ) as HTMLSelectElement;
+
+  const selectMobile = document.querySelectorAll(".orderMobileContent span");
+
+  select.addEventListener("change", () => {
+    setCardInHtml(
+      ordenarProdutos(select.value, filter(filterC, filterS, filterP))
+    );
+  });
+
+  selectMobile.forEach((element) => {
+    element.addEventListener("click", () => {
+      if (!element.classList.value.includes("selected")) {
+        setCardInHtml(
+          ordenarProdutos(element.id, filter(filterC, filterS, filterP))
+        );
+      }
+    });
+  });
+}
+
+function ordenarProdutos(order: string, product: any): Product[] {
+  switch (order) {
+    case "maiorPreco":
+      return product.slice().sort((a: any, b: any) => b.price - a.price);
+    case "menorPreco":
+      return product.slice().sort((a: any, b: any) => a.price - b.price);
+    case "recentes":
+      return product
+        .slice()
+        .sort(
+          (a: any, b: any) =>
+            new Date(b.date).getTime() - new Date(a.date).getTime()
+        );
+    default:
+      return product;
+  }
 }
