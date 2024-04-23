@@ -84,11 +84,16 @@ function setColorsInHtml(colors: Object, div: HTMLElement) {
 }
 
 function addToCart() {
-  const cart: Array<Object> = [];
+  let cart: Array<Object> = [];
 
   const buttons = document.querySelectorAll(".card button");
 
   const cartDiv = document.querySelector(".cartNum") as HTMLElement;
+
+  if (sessionStorage.getItem("cart") !== null) {
+    cart = JSON.parse(sessionStorage.getItem("cart"));
+    cartDiv.innerText = cart.length.toString();
+  }
 
   buttons.forEach((element) => {
     element.addEventListener("click", () => {
