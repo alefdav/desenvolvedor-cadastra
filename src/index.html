@@ -45,11 +45,14 @@
         <div class="sizes">
           <h3>Tamanhos</h3>
           <div class="contentSizes">
-            <span>P</span>
-            <span>M</span>
-            <span>G</span>
-            <span>GG</span>
-            <span>U</span>
+            <span class="clickFilter">P</span>
+            <span class="clickFilter">M</span>
+            <span class="clickFilter">G</span>
+            <span class="clickFilter">GG</span>
+            <span class="clickFilter">U</span>
+            <span class="clickFilter">36</span>
+            <span class="clickFilter">38</span>
+            <span class="clickFilter">40</span>
           </div>
           
         </div>
@@ -58,15 +61,29 @@
           <h3>Faixa de preço</h3>
           <div class="contentPrices">
             <div class="display-flex-row-align-center">
-              <input type="radio" name="color2" id="color2">
+              <input type="radio" name="price" id="color2" class="clickFilter" pricedata = '0-50'>
               <label for="color2">de R$0 até R$50</label>
             </div>
             <div class="display-flex-row-align-center">
-              <input type="radio" name="color2" id="color2">
+              <input type="radio" name="price" id="color2" class="clickFilter" pricedata = '51-150'>
               <label for="color2">de R$51 até R$150</label>
+            </div>
+            <div class="display-flex-row-align-center">
+              <input type="radio" name="price" id="color2" class="clickFilter" pricedata = '151-300'>
+              <label for="color2">de R$151 até R$300</label>
+            </div>
+            <div class="display-flex-row-align-center">
+              <input type="radio" name="price" id="color2" class="clickFilter" pricedata = '301-500'>
+              <label for="color2">de R$301 até R$500</label>
+            </div>
+            <div class="display-flex-row-align-center">
+              <input type="radio" name="price" id="color2" class="clickFilter" pricedata = '500'>
+              <label for="color2">a partir de R$ 500</label>
             </div>
           </div>
         </div>
+
+        <button onclick="window.location.reload();">Limpar filtros</button>
       </div>
       
     </section>
@@ -89,54 +106,83 @@
     <div class="filterMobile displayNone">
       <div class="filterMobileHeader">
         <h2>FILTRAR</h2>
-        <span class="closeButton">X</span>
+        <span class="closeButton"><img src="./img/close.png" alt=""></span>
       </div>
       <div class="filterMobileContent">
         <details class="filterMobileColors">
           <summary><h2>CORES</h2></summary>
           
         </details>
-        <details>
+        <details class="filterMobileSize">
           <summary><h2>TAMANHOS</h2></summary>
             <div class="contentSizes">
-              <span>P</span>
-              <span>M</span>
-              <span>G</span>
-              <span>GG</span>
-              <span>U</span>
+              <span class="clickFilter">P</span>
+              <span class="clickFilter">M</span>
+              <span class="clickFilter">G</span>
+              <span class="clickFilter">GG</span>
+              <span class="clickFilter">U</span>
+              <span class="clickFilter">36</span>
+              <span class="clickFilter">38</span>
+              <span class="clickFilter">40</span>
             </div>
         </details>
-        <details>
-          <summary><h2>FAIXA DE PREÇO</h2></summary>
+        <details class="filterMobilePrice">
+          <summary ><h2>FAIXA DE PREÇO</h2></summary>
           <div class="contentPrices">
             <div class="display-flex-row-align-center">
-              <input type="radio" name="color2" id="color2">
+              <input type="radio" name="price" id="color2" class="clickFilter" pricedata = '0-50'>
               <label for="color2">de R$0 até R$50</label>
             </div>
             <div class="display-flex-row-align-center">
-              <input type="radio" name="color2" id="color2">
+              <input type="radio" name="price" id="color2" class="clickFilter" pricedata = '51-150'>
               <label for="color2">de R$51 até R$150</label>
+            </div>
+            <div class="display-flex-row-align-center">
+              <input type="radio" name="price" id="color2" class="clickFilter" pricedata = '151-300'>
+              <label for="color2">de R$151 até R$300</label>
+            </div>
+            <div class="display-flex-row-align-center">
+              <input type="radio" name="price" id="color2" class="clickFilter" pricedata = '301-500'>
+              <label for="color2">de R$301 até R$500</label>
+            </div>
+            <div class="display-flex-row-align-center">
+              <input type="radio" name="price" id="color2" class="clickFilter" pricedata = '500'>
+              <label for="color2">a partir de R$ 500</label>
             </div>
           </div>
         </details>
+      </div>
+      <div class="buttons">
+        <button class="aplicar">
+          APLICAR
+        </button>
+        <button class="limpar">
+          LIMPAR
+        </button>
       </div>
     </div>
 
     <div class="orderMobile displayNone">
       <div class="orderMobileHeader">
         <h2>ORDERNAR</h2>
-        <span class="closeButton">X</span>
+        <span class="closeButton"><img src="./img/close.png" alt=""></span>
       </div>
       
       <div class="orderMobileContent">
-        <span>Mais recente</span>
-        <span>Maior preço</span>
-        <span>Menor preço</span>
+        <span id="recentes">Mais recente</span>
+        <span id="maiorPreco">Maior preço</span>
+        <span id="menorPreco">Menor preço</span>
       </div>
     </div>
     
     
   </main>
+
+  <footer>
+    <h4>
+      CADASTRA: Implantação de E-commerce VTEX
+    </h4>
+  </footer>
 
 </body>
 
